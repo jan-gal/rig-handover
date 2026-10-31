@@ -77,3 +77,13 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issue list
+
+- #1 Run log reader and DigestRow types (§ 1), closed
+- #2 Digest page (§ 2a), closed
+- #3 Digest JSON endpoint (§ 2b), closed
+- #4 Status board links to digests (§ 2c), closed
+- #5 Route tests for digest page and JSON (§ 2d), closed
+- #6 Preview for review (§ 3), closed
+- #7 Clean up: remove lane marker from preview (§ 4), closed
