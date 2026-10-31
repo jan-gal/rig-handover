@@ -38,6 +38,12 @@ describe('readNight', () => {
     expect(notes.owner).toBe('lane-07');
   });
 
+  it('counts fails per job and line counts per status for the night', () => {
+    const d = readNight(runs, '2026-10-28')!;
+    expect(d.rows.find((r) => r.job === 'notes/backup')!.fails).toBe(1);
+    expect(d.counts).toEqual({ ok: 10, retry: 4, fail: 1 });
+  });
+
   it('keeps a row with a null owner and shows it as null', () => {
     const d = readNight(runs, '2026-10-28')!;
     const render = d.rows.find((r) => r.job === 'digest/render')!;
@@ -56,7 +62,12 @@ describe('readNight', () => {
   it('renders an empty file as zero rows, not an error', () => {
     const dir = mkdtempSync(join(tmpdir(), 'digest-'));
     writeFileSync(join(dir, '2026-10-30.jsonl'), '');
-    expect(readNight(dir, '2026-10-30')).toEqual({ night: '2026-10-30', rows: [], badLines: 0 });
+    expect(readNight(dir, '2026-10-30')).toEqual({
+      night: '2026-10-30',
+      rows: [],
+      counts: { ok: 0, retry: 0, fail: 0 },
+      badLines: 0,
+    });
   });
 
   it('counts a non-JSON line and a line with a bad status as bad, never throws', () => {

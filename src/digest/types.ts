@@ -15,6 +15,7 @@ export type DigestRow = {
   owner: string | null;
   runs: number;
   retries: number;
+  fails: number;
   lastStatus: JobStatus;
   lastError: string | null;
   firstAt: string;
@@ -24,6 +25,8 @@ export type DigestRow = {
 export type NightDigest = {
   night: string;
   rows: DigestRow[];
+  // Line counts by status over every valid line in the night.
+  counts: Record<JobStatus, number>;
   badLines: number;
 };
 
